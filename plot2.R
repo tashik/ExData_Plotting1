@@ -16,12 +16,24 @@ dset<-read.csv.sql("household_power_consumption.txt", "select * from file where 
 unlink("dt.zip")
 unlink("household_power_consumption.txt")
 
+# Create a list of OSIXlt date objects
+weekDaysOSIX<-strptime(
+  paste(dset$Date, dset$Time, sep=" "), 
+  format='%d/%m/%Y %H:%M:%S'
+)
+
+# To get English weekday names we have to reset system locale to C
+Sys.setlocale(locale = "C")
+
 # Create required plot
-hist(dset$Global_active_power, 
-     col="red", 
-     xlab="Global Active Power (kilowatts)",
-     ylab="Frequency",
-     main="Global Active Power")
+# NB! There is some magic within plot function when working with labeling axis:
+# it gives names of week days as labels itself!
+plot(weekDaysOSIX, 
+     dset$Global_active_power, 
+     type="l", 
+     xlab="", 
+     ylab="Global Active Power (kilowatts)")
+
 
 #Copy the plot from screen graphic device to PNG
-dev.copy(png, 'plot1.png')
+dev.copy(png, 'plot2.png')
