@@ -25,8 +25,8 @@ weekDaysOSIX<-strptime(
 # To get English weekday names we have to reset system locale to C
 Sys.setlocale(locale = "C")
 
-# Let's plot to PNG directly
-png('plot2.png')
+png("plot4.png")
+par(mfcol=c(2,2))
 
 # Create required plot
 # NB! There is some magic within plot function when working with labeling axis:
@@ -37,4 +37,28 @@ plot(weekDaysOSIX,
      xlab="", 
      ylab="Global Active Power (kilowatts)")
 
+plot(weekDaysOSIX, 
+     dset$Sub_metering_1, 
+     type="l", 
+     xlab="", 
+     ylab="Energy Sub Metering")
+
+lines(weekDaysOSIX, dset$Sub_metering_2, col="red")
+lines(weekDaysOSIX, dset$Sub_metering_3, col="blue")
+
+legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col=c("black", "red", "blue"), lty=1, bty="n")
+
+plot(weekDaysOSIX, 
+     dset$Voltage, 
+     type="l", 
+     xlab="datetime", 
+     ylab="Voltage")
+
+plot(weekDaysOSIX, 
+     dset$Global_reactive_power, 
+     type="l", 
+     xlab="datetime", 
+     ylab="Global_reactive_power")
+
+#Copy the plot from screen graphic device to PNG
 dev.off()

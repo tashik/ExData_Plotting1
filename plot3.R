@@ -25,6 +25,9 @@ weekDaysOSIX<-strptime(
 # To get English weekday names we have to reset system locale to C
 Sys.setlocale(locale = "C")
 
+# Let's plot to PNG directly
+png('plot3.png')
+
 # Create required plot
 # NB! There is some magic within plot function when working with labeling axis:
 # it gives names of week days as labels itself!
@@ -39,5 +42,4 @@ lines(weekDaysOSIX, dset$Sub_metering_3, col="blue")
 
 legend("topright", c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"), col=c("black", "red", "blue"), lty=1)
 
-#Copy the plot from screen graphic device to PNG
-dev.copy(png, 'plot3.png')
+dev.off()

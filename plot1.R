@@ -16,6 +16,9 @@ dset<-read.csv.sql("household_power_consumption.txt", "select * from file where 
 unlink("dt.zip")
 unlink("household_power_consumption.txt")
 
+# Let's plot to PNG directly
+png('plot1.png')
+
 # Create required plot
 hist(dset$Global_active_power, 
      col="red", 
@@ -23,5 +26,4 @@ hist(dset$Global_active_power,
      ylab="Frequency",
      main="Global Active Power")
 
-#Copy the plot from screen graphic device to PNG
-dev.copy(png, 'plot1.png')
+dev.off()
